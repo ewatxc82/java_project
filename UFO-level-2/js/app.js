@@ -12,7 +12,7 @@ var $tbody = d3.select("tbody");
 var button = d3.select("#filter-btn");
 var searchDate = d3.select("#datetime");
 var searchCity = d3.select("#city");
-var columns = ["datetime", "city", "country", "shape", "durationMinutes", "comments"]
+var columns = ["datetime", "city", "state", "country", "shape","durationMinutes", "comments"]
 
 //ADDING DATA TO THE INDEX HTML FILE
 var addData = (ufoInput) => {
