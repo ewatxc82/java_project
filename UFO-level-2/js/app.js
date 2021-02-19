@@ -4,14 +4,17 @@ var tableData = data;
 // YOUR CODE HERE!
 var tbody = d3.select("tbody");
 
+//VERIFYING DATA IN CONSOLE LOG
 console.log(tableData);
 
+//CREATING REFERENCE VARIABLES
 var $tbody = d3.select("tbody");
 var button = d3.select("#filter-btn");
 var searchDate = d3.select("#datetime");
 var searchCity = d3.select("#city");
 var columns = ["datetime", "city", "country", "shape", "durationMinutes", "comments"]
 
+//ADDING DATA TO THE INDEX HTML FILE
 var addData = (ufoInput) => {
     ufoInput.forEach(sightings => {
         var row = $tbody.append("tr");
@@ -19,6 +22,7 @@ var addData = (ufoInput) => {
     });
 } 
 
+//CREATING THE EVENT LISTENER FOR BUTTON AND FILTER
 addData(tableData);
 
 button.on("click", () => {
