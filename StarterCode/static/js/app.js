@@ -6,71 +6,32 @@ var tbody = d3.select("tbody");
 
 console.log(tableData);
 
-var columns = ["datetime", "city", "state", "country", "shape", "durationMinutes", "comments"]
+var $tbody = d3.select("tbody");
+var button = d3.select("#filter-btn");
+var dateInput = d3.select("#datetime");
+var cityInput = d3.select("#city");
+var columns = ["datetime", "city", "country", "shape", "durationMinutes", "comments"]
 
-function loadData(){
-    tableData.forEach(aliens =>{
-        var row = tbody.append("tr")
-        columns.forEach(column => {
-            if(column == "city" || column == "state" || column == "country"){
-                row.append("td").text(aliens[column].toUpperCase())
-            }
-            else row.append("td").text(aliens[column])
-        })
-    })
-}
+var addData = (ufoInput) => {
+    ufoInput.forEach(sighting => {
+        var row = $tbody.append("tr");
+        columns.forEach(column => row.append("td").text(sighting[column]))
+    });
+} 
 
-loadData()
+addData(tableData);
 
-var inputDate = d3.select("#datetime");
-var inputCity = d3.select("#city");
-var inputState = d3.select("#state");
-var inputCoutry = d3.select("#country");
-var inputShape = d3.select("#shape");
-
-var filterButton = d3.select("#filter-btn");
-
-var resetButton = d3.select("#reset-btn");
-
-function filterData(){
+button.on("click", () => {
 
     d3.event.preventDefault();
 
-    var Datevalue = inputDate.property("value");
-    var Cityvalue = inputCity.property("value");
-    var Statevalue = inputState.property("value");
-    var Countryvalue = inputCountry.property("value");
-    var Shapevalue = inputShape.property("value");
+    var dateInput2 = dateInput.property("value").trim();
 
-    var filteredData = tableData.filter(function(recorded){
-        return ((recorded.datetime === Datevalue || Datevalue == "" ) &&
-                (recorded.city === Cityvalue || Cityvalue == "" ) &&
-                (recorded.state === Statevalue || Statevalue == "") &&
-                (recorded.country === Countryvalue || Countryvalue == "") &&
-                (recorded.shape === Shapevalue || Shapevalue == "")
-        )
-    })
+    var dateFilter = tableData.filter(tableData => tableData.datetime === dateInput2);
 
-    console.log(filteredData)
+    $tbody.html("");
 
-    tbody.text("")
-
-    filteredData.forEach(aliens =>{
-        var row = tbody.append("tr")
-        columns.forEach(column => {
-            if(column == "city" || column == "state" || column == "country"){
-                row.append("td").text(aliens[column].toUpperCase())
-            }
-            else row.append("td").text(aliens[column])
-        })
-    })
-}
-
-filterData.on("click", filterData)
-
-function resetData(){
-    tbody.text("")
-    loadData()
-}
-
-resetButton.on("click", resetData)
+    let response = {
+        dateFilter
+    }
+})
